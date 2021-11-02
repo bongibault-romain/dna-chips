@@ -1,4 +1,4 @@
-(* DM2 - OCAML - Bongibault Romain *)
+(* DM3 - OCAML - Bongibault Romain *)
 
 (* Question 1 *)
 
@@ -219,4 +219,4 @@ let rec chip_g n = match n with
 * les masques. 
 *)
 
-(* DM2 - OCAML - Bongibault Romain *)
+(* DM3 - OCAML - Bongibault Romain *)
