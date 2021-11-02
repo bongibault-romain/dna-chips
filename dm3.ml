@@ -12,7 +12,7 @@ let copy_matrix m =
       p.(i).(j) <- m.(i).(j);
     done;
   done;
-  
+
   p
 ;;
 
@@ -44,12 +44,12 @@ let map f m =
   let columns = if lines > 0 then Array.length m.(0) else 0 in
   let p = Array.make_matrix lines columns m.(0).(0) in
 
-  for i = 0 to lines - 1 do
+  for i = 0 to (lines - 1) do
     for j = 0 to columns - 1 do
       p.(i).(j) <- f m.(i).(j);
     done;
   done;
-  
+
   p
 ;;
 
@@ -98,7 +98,7 @@ let sym_h m =
   let lines = Array.length m in
   let columns = if lines > 0 then Array.length m.(0) else 0 in
   let p = Array.make_matrix lines columns m.(0).(0) in
-  
+
   for i = 0 to lines - 1 do
     for j = 0 to columns - 1 do  
       p.(i).(j) <- m.(lines - 1 - i).(j);
@@ -113,7 +113,7 @@ let sym_y m =
   let lines = Array.length m in
   let columns = if lines > 0 then Array.length m.(0) else 0 in
   let p = Array.make_matrix lines columns m.(0).(0) in
-  
+
   for i = 0 to lines - 1 do
     for j = 0 to columns - 1 do  
       p.(i).(j) <- m.(i).(columns -  1 - j);
@@ -134,10 +134,10 @@ let rec chip_f n = match n with
     for i = 0 to next_size - 1 do
       for j = 0 to next_size - 1 do
         p.(i).(j) <- (match i,j with
-          | i,j when i < before_size && j < before_size -> "A" 
-          | i,j when i < before_size && j >= before_size -> "C" 
-          | i,j when i >= before_size && j < before_size -> "G" 
-          | _ -> "T") ^ before.(i mod before_size).(j mod before_size) 
+            | i,j when i < before_size && j < before_size -> "A" 
+            | i,j when i < before_size && j >= before_size -> "C" 
+            | i,j when i >= before_size && j < before_size -> "G" 
+            | _ -> "T") ^ before.(i mod before_size).(j mod before_size) 
       done;
     done;
 
@@ -149,14 +149,14 @@ let masque b k m =
   let lines = Array.length m in
   let columns = if lines > 0 then Array.length m.(0) else 0 in
   let p = Array.make_matrix lines columns false in
-  
+
   for i = 0 to (lines - 1) do
     for j = 0 to (columns - 1) do
       if m.(i).(j).[(String.length m.(i).(j)) - k] = b then 
         p.(i).(j) <- true;
     done;
   done;    
-  
+
   p
 ;;
 
@@ -176,10 +176,10 @@ let rec dessin m =
         print_string "x"
       else 
         print_string " ";
-        
+
       print_string "|";
-      done;
-    
+    done;
+
     print_newline ();
   done;
 ;;
@@ -189,26 +189,26 @@ let rec dessin m =
 let rec chip_g n = match n with 
   | 1 -> chip_f 1
   | n -> let before = chip_g (n - 1) in
-  let before_size = Array.length before in
-  let next_size = 2 * before_size in
-  let p = Array.make_matrix next_size next_size "" in
+    let before_size = Array.length before in
+    let next_size = 2 * before_size in
+    let p = Array.make_matrix next_size next_size "" in
 
-  blit before p 0 0;
-  blit (sym_y before) p before_size 0;
-  blit (sym_h (chip_f (n - 1))) p 0 before_size;
-  blit (sym_y (sym_h before)) p before_size before_size;
+    blit before p 0 0;
+    blit (sym_y before) p before_size 0;
+    blit (sym_h (chip_f (n - 1))) p 0 before_size;
+    blit (sym_y (sym_h before)) p before_size before_size;
 
-  for i = 0 to next_size - 1 do
-    for j = 0 to next_size - 1 do
-      p.(i).(j) <- (match i,j with
-        | i,j when i < before_size && j < before_size -> "A" 
-        | i,j when i < before_size && j >= before_size -> "C" 
-        | i,j when i >= before_size && j < before_size -> "G" 
-        | _ -> "T") ^ p.(i).(j) 
+    for i = 0 to next_size - 1 do
+      for j = 0 to next_size - 1 do
+        p.(i).(j) <- (match i,j with
+            | i,j when i < before_size && j < before_size -> "A" 
+            | i,j when i < before_size && j >= before_size -> "C" 
+            | i,j when i >= before_size && j < before_size -> "G" 
+            | _ -> "T") ^ p.(i).(j) 
+      done;
     done;
-  done;
 
-  p
+    p
 ;;
 
 (* Question 9 *)
