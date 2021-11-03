@@ -214,9 +214,9 @@ let rec chip_g n = match n with
 (* Question 9 *)
 
 (*
-* Non, il y a toujours autant de trou. En effet, la puce F(n) contient la totalités des possibilités 
-* d'arrangements des lettres A,T,G et C sur n caractères, donc il y aura toujours autant de trou dans 
-* les masques. 
+* Oui il y aura moins de trous, en effet les trous seront plus gros 
+* avec la deuxième méthode, avec la première méthode les trous sont 
+* beaucoup plus écartés les uns des autres.
 *)
 
 (* DM3 - OCAML - Bongibault Romain *)
