@@ -192,11 +192,12 @@ let rec chip_g n = match n with
     let before_size = Array.length before in
     let next_size = 2 * before_size in
     let p = Array.make_matrix next_size next_size "" in
+    let sym_h_before = sym_h before in
 
     blit before p 0 0;
     blit (sym_y before) p before_size 0;
-    blit (sym_h (chip_f (n - 1))) p 0 before_size;
-    blit (sym_y (sym_h before)) p before_size before_size;
+    blit sym_h_before p 0 before_size;
+    blit (sym_y sym_h_before) p before_size before_size;
 
     for i = 0 to next_size - 1 do
       for j = 0 to next_size - 1 do
